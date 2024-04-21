@@ -7,9 +7,9 @@
 
 import Foundation
 
-public struct Point {
-    var x: Double
-    var y: Double
+public struct Point2D {
+    public var x: Double
+    public var y: Double
     
     public init(x: Double, y: Double) {
         self.x = x
@@ -19,5 +19,5 @@ public struct Point {
 
 public protocol RDP {
     
-    func polygonApproximation(epsilon: Double) -> [Point];
+    func polygonApproximation(epsilon: Double) -> [Point2D];
 }

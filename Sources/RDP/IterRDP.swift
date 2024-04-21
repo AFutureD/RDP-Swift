@@ -11,12 +11,12 @@ import Accelerate
 // Swift implementation of the Ramer-Douglas-Peucker algorithm.
 public struct IterRDP: RDP {
     
-    var points:[Point]
+    var points:[Point2D]
     var pointCount: Int = 0
     var pointArrayX:[Double] = []
     var pointArrayY:[Double] = []
     
-    public init(points: [Point]) {
+    public init(points: [Point2D]) {
         self.points = points
         self.pointCount  = points.count
         self.pointArrayX = points.map {$0.x}
@@ -68,8 +68,8 @@ public struct IterRDP: RDP {
         return mask
     }
     
-    public func polygonApproximation(epsilon: Double = 0.0) -> [Point] {
-        var res: [Point] = []
+    public func polygonApproximation(epsilon: Double = 0.0) -> [Point2D] {
+        var res: [Point2D] = []
         let mask:[Bool] = polygonApproximationMask(epsilon: epsilon)
         
         for i in 0 ..< pointCount {
@@ -86,8 +86,8 @@ public struct IterRDP: RDP {
         let B = points[b]
         
         
-        let PA = Point(x: A.x - P.x, y: A.y - P.y)
-        let PB = Point(x: B.x - P.x, y: B.y - P.y)
+        let PA = Point2D(x: A.x - P.x, y: A.y - P.y)
+        let PB = Point2D(x: B.x - P.x, y: B.y - P.y)
         
         
         let corss = abs(PA.x * PB.y - PA.y * PB.x)
