@@ -24,35 +24,32 @@ public struct VecRDP: RDP {
     }
     
     public func polygonApproximationMask(epsilon: Double = 0.0) -> [Double] {
-        let start_idx = 0
-        let end_idx = pointCount - 1
         var mask = [Double](repeating: 1.0, count: pointCount)
         
         var stack: [(start:Int, end:Int)] = []
-        stack.append((start:start_idx, end:end_idx))
+        stack.append((start:0, end:pointCount - 1))
         
-        var ax  = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var ay  = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var bx  = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var by  = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        let px  = pointArrayX[start_idx...end_idx]
-        let py  = pointArrayY[start_idx...end_idx]
+        var ax  = [Double](repeating: 0, count: pointCount)
+        var ay  = [Double](repeating: 0, count: pointCount)
+        var bx  = [Double](repeating: 0, count: pointCount)
+        var by  = [Double](repeating: 0, count: pointCount)
+        let px  = pointArrayX[0...pointCount - 1]
+        let py  = pointArrayY[0...pointCount - 1]
         
-        var PAx = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var PAy = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var PBx = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var PBy = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var ABx = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var ABy = [Double](repeating: 0, count: end_idx - start_idx + 1)
+        var PAx = [Double](repeating: 0, count: pointCount)
+        var PAy = [Double](repeating: 0, count: pointCount)
+        var PBx = [Double](repeating: 0, count: pointCount)
+        var PBy = [Double](repeating: 0, count: pointCount)
+        var ABx = [Double](repeating: 0, count: pointCount)
+        var ABy = [Double](repeating: 0, count: pointCount)
         
-        var PAB = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var AB  = [Double](repeating: 0, count: end_idx - start_idx + 1)
+        var PAB = [Double](repeating: 0, count: pointCount)
+        var AB  = [Double](repeating: 0, count: pointCount)
         
-        var PAB_abs  = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        var AB_square = [Double](repeating: 0, count: end_idx - start_idx + 1)
+        var PAB_abs  = [Double](repeating: 0, count: pointCount)
+        var AB_square = [Double](repeating: 0, count: pointCount)
         
-        var distance = [Double](repeating: 0, count: end_idx - start_idx + 1)
-        
+        var distance = [Double](repeating: 0, count: pointCount)
         
         while !stack.isEmpty {
             
